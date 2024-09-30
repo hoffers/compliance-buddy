@@ -97,6 +97,15 @@ CREATE TABLE control_framework (
     FOREIGN KEY (framework_id) REFERENCES frameworks(id)
 );
 
+-- Create company_framework table (many-to-many relationship)
+CREATE TABLE company_framework (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    framework_id INT NOT NULL,
+    FOREIGN KEY (company_id) REFERENCES companies(id),
+    FOREIGN KEY (framework_id) REFERENCES frameworks(id)
+);
+
 -- Create questions table
 CREATE TABLE questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
