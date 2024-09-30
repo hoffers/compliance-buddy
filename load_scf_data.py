@@ -1,7 +1,9 @@
+from configparser import ConfigParser
 import json
+import os
 import pandas as pd
 import mysql.connector
-from configparser import ConfigParser
+import sys
 import traceback
 
 # Read database configuration from the config file
@@ -113,7 +115,8 @@ def insert_controls(cursor, controls_df, domain_id_map):
             row['SCF #'], 
             row['SCF Control'], 
             row['Secure Controls Framework (SCF)\nControl Description'],
-            row['Methods To Comply With SCF Controls'],
+            row['Possible Solutions & Considerations\nMicro-Small Business (<10 staff)\nBLS Firm Size Classes 1-2'],
+            # row['Methods To Comply With SCF Controls'],
             row['Relative Control Weighting'],
             determine_pptdf_applicability(row), # Based on multiple columns
             row['NIST CSF\nFunction Grouping']
@@ -136,12 +139,18 @@ def insert_questions(cursor, controls_df, control_id_map):
         all_data.append((
             control_id_map[row['SCF #']],
             row['SCF Control Question'], 
-            row['SP-CMM 0\nNot Performed'], 
-            row['SP-CMM 1\nPerformed Informally'], 
-            row['SP-CMM 2\nPlanned & Tracked'], 
-            row['SP-CMM 3\nWell Defined'], 
-            row['SP-CMM 4\nQuantitatively Controlled'], 
-            row['SP-CMM 5\nContinuously Improving']
+            row['C|P-CMM 0\nNot Performed'], 
+            row['C|P-CMM 1\nPerformed Informally'], 
+            row['C|P-CMM 2\nPlanned & Tracked'], 
+            row['C|P-CMM 3\nWell Defined'], 
+            row['C|P-CMM 4\nQuantitatively Controlled'], 
+            row['C|P-CMM 5\nContinuously Improving']
+            # row['SP-CMM 0\nNot Performed'], 
+            # row['SP-CMM 1\nPerformed Informally'], 
+            # row['SP-CMM 2\nPlanned & Tracked'], 
+            # row['SP-CMM 3\nWell Defined'], 
+            # row['SP-CMM 4\nQuantitatively Controlled'], 
+            # row['SP-CMM 5\nContinuously Improving']
         ))
 
     # Insert questions data
@@ -219,6 +228,9 @@ def insert_control_evidence_request(cursor, evidence_requests_df, control_id_map
 def insert_assessment_objectives(cursor, assessment_objectives_df, control_id_map):
     all_data = []
     for _, row in assessment_objectives_df.iterrows():
+        # Skip this deprecated one
+        if row['SCF #'].strip() not in control_id_map:
+            continue
         all_data.append((
             control_id_map[row['SCF #'].strip()],
             row['SCF AO #'].strip(), 
@@ -239,15 +251,24 @@ def get_identifier_id_map(cursor, table):
 
 # Main script to load data into the database
 def main():
+
+    if len(sys.argv) != 2:
+        print('Please include path to SCF file')
+        return
+
     # Load Excel data
-    file_path = '../Mapping Resources/secure-controls-framework-scf-2024-2-1.xlsx'
+    # file_path = '../Mapping Resources/Secure Controls Framework (SCF) - 2024.3.xlsx'
+    file_path = sys.argv[1]
+    if not os.path.isfile(file_path):
+        print("Incorrect file path:", file_path)
+        return
     
     # Load the data from the spreadsheet
-    frameworks_df = pd.read_excel(file_path, sheet_name='Authoritative Sources', na_filter=False).replace({'▪': '-'}, regex=True)
-    domains_df = pd.read_excel(file_path, sheet_name='Domains & Principles')
-    controls_df = pd.read_excel(file_path, sheet_name='SCF 2024.2', na_filter=False).replace({'▪': '-'}, regex=True)
-    evidence_requests_df = pd.read_excel(file_path, sheet_name='Evidence Request List 2024.2')
-    assessment_objectives_df = pd.read_excel(file_path, sheet_name='Assessment Objectives 2024.2').replace({'▪': '-'}, regex=True)
+    domains_df = pd.read_excel(file_path, sheet_name=0, na_filter=False).replace({'▪': '-', '∙': '-'}, regex=True)
+    frameworks_df = pd.read_excel(file_path, sheet_name=1, na_filter=False).replace({'▪': '-', '∙': '-'}, regex=True)
+    controls_df = pd.read_excel(file_path, sheet_name=2, na_filter=False).replace({'▪': '-', '∙': '-'}, regex=True)
+    assessment_objectives_df = pd.read_excel(file_path, sheet_name=3).replace({'▪': '-', '∙': '-'}, regex=True)
+    evidence_requests_df = pd.read_excel(file_path, sheet_name=4, na_filter=False).replace({'▪': '-', '∙': '-'}, regex=True)
 
     # Read database config
     db_config = read_db_config()
