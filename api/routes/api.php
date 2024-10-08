@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControlController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrameworkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::apiResource('frameworks', FrameworkController::class);
+Route::apiResource('controls', ControlController::class);
