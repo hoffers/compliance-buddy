@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS control_status;
 DROP TABLE IF EXISTS evidence;
 DROP TABLE IF EXISTS assessment_objectives;
 DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS company_framework;
 DROP TABLE IF EXISTS control_framework;
 DROP TABLE IF EXISTS frameworks;
 DROP TABLE IF EXISTS control_evidence_request;
