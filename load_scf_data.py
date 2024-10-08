@@ -279,10 +279,12 @@ def main():
 
     try:
         # First create the db
-        print('creating database...', end='', flush=True)
-        init_db(cursor)
-        conn.commit()
-        print('done')
+        # print('creating database...', end='', flush=True)
+        # init_db(cursor)
+        # conn.commit()
+        # print('done')
+
+        cursor.execute("USE buddy")
 
         # Raise max_allowed_packet to handle bulk queries
         cursor.execute("SHOW VARIABLES LIKE 'max_allowed_packet'")
