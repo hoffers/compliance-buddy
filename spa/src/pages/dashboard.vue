@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     viewFramework(id) {
-      this.$router.push(`/framework/${id}`);
+      this.$router.push(`/frameworks/${id}`);
     },
   },
 };
