@@ -41,7 +41,7 @@ class Framework extends Model
 		'identifier'
 	];
 
-	protected $hidden = ['pivot'];
+	protected $hidden = ['pivot', 'identifier'];
 
 	public function companies()
 	{

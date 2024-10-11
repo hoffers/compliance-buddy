@@ -20,6 +20,10 @@ class DashboardController extends Controller
                     $q->where('status', 'complete');
                 });
             }])->get();
+        $frameworks = array_map(function($framework) {
+            $framework['percent_complete'] = number_format(100 * $framework['complete_controls'] / $framework['total_controls'], 1) ;
+            return $framework;
+        }, $frameworks->toArray());
 
         return response()->json($frameworks);
     }
