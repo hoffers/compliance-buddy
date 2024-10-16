@@ -25,6 +25,25 @@ export default {
       .then(response => response.json())
       .then((data) => {
         this.frameworks = data;
+      })
+      .catch((error) => {
+        this.frameworks = [
+          {
+            id: 1,
+            short_name: 'test1',
+            percent_complete: 34
+          },
+          {
+            id: 2,
+            short_name: 'test2',
+            percent_complete: 55
+          },
+          {
+            id: 3,
+            short_name: 'test3',
+            percent_complete: 77
+          }
+        ];
       });
   },
   methods: {
