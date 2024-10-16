@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Control;
 
 class ControlController extends Controller
 {
@@ -13,7 +14,8 @@ class ControlController extends Controller
      */
     public function index()
     {
-        //
+        $controls = Control::get();
+        return response()->json($controls);
     }
 
     /**
@@ -35,7 +37,9 @@ class ControlController extends Controller
      */
     public function show($id)
     {
-        //
+        $control = Control::with('domain', 'questions', 'assessment_objectives', 'evidence_requests', 'control_statuses')->find($id)->toArray();
+        $control['status'] = $control['control_statuses'][0]['status'] ?? 'Not Started';
+        return response()->json($control);
     }
 
     /**
