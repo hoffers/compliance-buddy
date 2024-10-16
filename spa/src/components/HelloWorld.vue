@@ -13,7 +13,7 @@
       <div class="text-center">
         <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
 
-        <h1 class="text-h2 font-weight-bold">Vuetify</h1>
+        <h1 class="text-h2 font-weight-bold">Compliance Buddy</h1>
       </div>
 
       <div class="py-4" />
@@ -23,7 +23,7 @@
           <v-card
             class="py-4"
             color="surface-variant"
-            image="https://cdn.vuetifyjs.com/docs/images/one/create/feature.png"
+            href="/dashboard"
             prepend-icon="mdi-rocket-launch-outline"
             rounded="lg"
             variant="outlined"
@@ -33,12 +33,12 @@
             </template>
 
             <template #title>
-              <h2 class="text-h5 font-weight-bold">Get started</h2>
+              <h2 class="text-h5 font-weight-bold">Dashboard</h2>
             </template>
 
             <template #subtitle>
               <div class="text-subtitle-1">
-                Replace this page by removing <v-kbd>{{ `<HelloWorld />` }}</v-kbd> in <v-kbd>pages/index.vue</v-kbd>.
+                Manage your company's compliance goals.
               </div>
             </template>
 
@@ -57,13 +57,12 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/"
+            href="/frameworks"
             prepend-icon="mdi-text-box-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Learn about all things Vuetify in our documentation."
-            target="_blank"
-            title="Documentation"
+            subtitle="Explore compliance frameworks."
+            title="Compliance Frameworks"
             variant="text"
           >
             <v-overlay
@@ -81,13 +80,12 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/introduction/why-vuetify/#feature-guides"
+            href="/controls"
             prepend-icon="mdi-star-circle-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Explore available framework Features."
-            target="_blank"
-            title="Features"
+            subtitle="Discover security controls."
+            title="Security Controls"
             variant="text"
           >
             <v-overlay
@@ -105,13 +103,13 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/components/all"
+            href="https://github.com/hoffers/compliance-buddy"
             prepend-icon="mdi-widgets-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Discover components in the API Explorer."
+            subtitle="Contribute to Compliance Buddy source code."
             target="_blank"
-            title="Components"
+            title="Open Source"
             variant="text"
           >
             <v-overlay
@@ -129,13 +127,13 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://discord.vuetifyjs.com"
+            href="https://securecontrolsframework.com/"
             prepend-icon="mdi-account-group-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Connect with Vuetify developers."
+            subtitle="Learn more about our data source."
             target="_blank"
-            title="Community"
+            title="Secure Controls Framework"
             variant="text"
           >
             <v-overlay
