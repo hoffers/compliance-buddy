@@ -5,15 +5,15 @@
       type="heading, subtitle, list-item-two-line, divider, table-thead, table-tbody"
       :loading=loading
     >
-    <container>
+    <v-card class="ma-4">
       <h1>{{framework.short_name}}</h1>
       <h2>{{framework.full_name}}</h2>
       <h3>{{framework.source}} - {{framework.geography}}</h3>
       <a :href="framework.url">Source</a>
-      <v-card class="ma-4">
-        <v-data-table :items="controls" :headers="headers" @click:row="rowClick" />
-      </v-card>
-    </container>
+    </v-card>
+    <v-card class="ma-4">
+      <v-data-table :items="framework.controls" :headers="headers" @click:row="rowClick" />
+    </v-card>
   </v-skeleton-loader>
 </template>
 
@@ -44,7 +44,6 @@ export default {
           key: "status",
         },
       ],
-      controls: [],
       framework: {},
       frameworkId: useRoute().params.id,
       loading: true,
@@ -55,7 +54,6 @@ export default {
       .then(response => response.json())
       .then((data) => {
         this.framework = data;
-        this.controls = data.controls;
         this.loading = false;
       });
   },
