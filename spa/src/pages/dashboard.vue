@@ -1,6 +1,6 @@
 <template>
-  <h1>Dashboard</h1>
   <v-container>
+    <h1>Dashboard</h1>
     <v-row>
       <v-col v-for="framework in frameworks" :key="framework.id">
         <v-card @click="viewFramework(framework.id)">
