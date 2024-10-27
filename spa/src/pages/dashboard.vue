@@ -1,23 +1,40 @@
 <template>
-  <v-container>
     <h1>Dashboard</h1>
     <v-row>
       <v-col v-for="framework in frameworks" :key="framework.id">
-        <v-card @click="viewFramework(framework.id)">
-          <v-card-title>{{ framework.short_name }}</v-card-title>
-          <v-card-subtitle>{{ framework.percent_complete }}%</v-card-subtitle>
-          <v-progress-linear :model-value="framework.percent_complete" />
-        </v-card>
+        <v-skeleton-loader
+            class="mx-auto"
+            elevation="2"
+            type="heading, chip"
+            :loading=loading
+          >
+          <v-card @click="viewFramework(framework.id)" width="100%">
+            <v-card-title>{{ framework.short_name }}</v-card-title>
+            <v-card-title><v-chip>{{ framework.percent_complete }}%</v-chip></v-card-title>
+            <v-progress-linear :model-value="framework.percent_complete" />
+          </v-card>
+        </v-skeleton-loader>
       </v-col>
     </v-row>
-  </v-container>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      frameworks: [],
+      frameworks: [
+        {
+          id: 1,
+          short_name: 'test1',
+          percent_complete: 34
+        },
+        {
+          id: 2,
+          short_name: 'test2',
+          percent_complete: 55
+        },
+      ],
+      loading: true,
     };
   },
   created() {
@@ -25,25 +42,10 @@ export default {
       .then(response => response.json())
       .then((data) => {
         this.frameworks = data;
+        this.loading = false;
       })
       .catch((error) => {
-        this.frameworks = [
-          {
-            id: 1,
-            short_name: 'test1',
-            percent_complete: 34
-          },
-          {
-            id: 2,
-            short_name: 'test2',
-            percent_complete: 55
-          },
-          {
-            id: 3,
-            short_name: 'test3',
-            percent_complete: 77
-          }
-        ];
+        this.loading = false;
       });
   },
   methods: {
