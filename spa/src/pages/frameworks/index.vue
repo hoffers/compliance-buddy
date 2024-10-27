@@ -5,10 +5,10 @@
       type="heading, divider, table-thead, table-tbody"
       :loading=loading
     >
-    <v-card class="ma-4">
+    <v-sheet class="ma-4">
       <h1>Frameworks</h1>
       <v-data-table :items="frameworks" :headers="headers" @click:row="rowClick" />
-    </v-card>
+    </v-sheet>
   </v-skeleton-loader>
 </template>
 
