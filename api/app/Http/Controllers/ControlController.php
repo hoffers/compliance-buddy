@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Control;
+use App\Models\ControlStatus;
 
 class ControlController extends Controller
 {
@@ -51,7 +52,16 @@ class ControlController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (isset($request->newStatus)) {
+            $newStatus = new ControlStatus;
+            $newStatus->status = $request->newStatus;
+            $newStatus->control_id = $id;
+            $newStatus->updated_by = 1; //hardcoded until we get some real users
+            $newStatus->save();
+            $newStatus->refresh();
+
+            return response()->json($newStatus);
+        }
     }
 
     /**
