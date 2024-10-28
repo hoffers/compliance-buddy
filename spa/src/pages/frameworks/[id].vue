@@ -12,7 +12,25 @@
       <a :href="framework.url">Source</a>
     </v-card>
     <v-card class="ma-4">
-      <v-data-table :items="framework.controls" :headers="headers" @click:row="rowClick" />
+
+      <v-text-field
+        v-model="search"
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        hide-details
+        single-line
+      ></v-text-field>
+      
+      <v-data-table
+        :items="framework.controls"
+        :headers="headers"
+        hover
+        multi-sort
+        sticky
+        filter-mode="some"
+        :search="search"
+        no-data-text="No controls found"
+        @click:row="rowClick" />
     </v-card>
   </v-skeleton-loader>
 </template>
@@ -47,6 +65,7 @@ export default {
       framework: {},
       frameworkId: useRoute().params.id,
       loading: true,
+      search: '',
     };
   },
   created() {
