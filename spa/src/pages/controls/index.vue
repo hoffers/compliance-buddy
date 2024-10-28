@@ -7,7 +7,25 @@
     >
     <v-sheet class="ma-4">
       <h1>Controls</h1>
-      <v-data-table :items="controls" :headers="headers" @click:row="rowClick" />
+
+      <v-text-field
+        v-model="search"
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        hide-details
+        single-line
+      ></v-text-field>
+      
+      <v-data-table
+        :items="controls"
+        :headers="headers"
+        hover
+        multi-sort
+        sticky
+        filter-mode="some"
+        :search="search"
+        no-data-text="No controls found"
+        @click:row="rowClick" />
     </v-sheet>
   </v-skeleton-loader>
 </template>
@@ -37,6 +55,7 @@ export default {
       ],
       controls: [],
       loading: true,
+      search: '',
     };
   },
   created() {
