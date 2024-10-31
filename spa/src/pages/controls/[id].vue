@@ -198,15 +198,17 @@ export default {
         {
           title: "Added",
           key: "created_at",
-          width: "200",
+          width: "175",
         },
         {
           title: "Title",
           key: "title",
+          minWidth: "240",
         },
         {
           title: "Details",
           key: "description",
+          minWidth: "500",
         },
       ],
       assessmentObjHeaders: [
