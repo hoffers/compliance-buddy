@@ -23,4 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::apiResource('frameworks', FrameworkController::class);
-Route::apiResource('controls', ControlController::class);
+
+Route::prefix('controls')->controller(ControlController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{id}', 'show');
+    Route::post('/{id}/status', 'updateStatus');
+    Route::post('/{id}/evidence', 'addEvidence');
+});

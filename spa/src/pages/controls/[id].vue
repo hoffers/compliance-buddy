@@ -139,11 +139,11 @@ export default {
     saveStatus() {
       console.log(this.newStatus);
       const requestOptions = {
-        method: "PATCH",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newStatus: this.newStatus })
       };
-      fetch(import.meta.env.VITE_AXIOS_BASE_URL + 'controls/' + this.controlId, requestOptions)
+      fetch(import.meta.env.VITE_AXIOS_BASE_URL + 'controls/' + this.controlId + '/status', requestOptions)
         .then(response => response.json())
         .then(data => (this.status = data));
       this.updatingStatus = false;

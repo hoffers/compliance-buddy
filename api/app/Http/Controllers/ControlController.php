@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Control;
 use App\Models\ControlStatus;
+use App\Models\Evidence;
 
 class ControlController extends Controller
 {
@@ -20,17 +21,6 @@ class ControlController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -38,7 +28,7 @@ class ControlController extends Controller
      */
     public function show($id)
     {
-        $control = Control::with('domain', 'questions', 'assessment_objectives', 'evidence_requests', 'control_statuses')->find($id)->toArray();
+        $control = Control::with('domain', 'questions', 'assessment_objectives', 'evidence_requests', 'control_statuses', 'evidence')->find($id)->toArray();
         $control['status'] = $control['control_statuses'][0]['status'] ?? 'Not Started';
         return response()->json($control);
     }
@@ -50,7 +40,7 @@ class ControlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
         if (isset($request->newStatus)) {
             $newStatus = new ControlStatus;
@@ -65,13 +55,24 @@ class ControlController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function addEvidence(Request $request, $id)
     {
-        //
+        if (isset($request->title) && isset($request->description)) {
+            $newEvidence = new Evidence;
+            $newEvidence->title = $request->title;
+            $newEvidence->description = $request->description;
+            $newEvidence->control_id = $id;
+            $newEvidence->added_by = 1; //hardcoded until we get some real users
+            $newEvidence->save();
+            $newEvidence->refresh();
+
+            return response()->json($newEvidence);
+        }
     }
 }
