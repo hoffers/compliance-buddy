@@ -42,16 +42,20 @@ class ControlController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
-        if (isset($request->newStatus)) {
-            $newStatus = new ControlStatus;
-            $newStatus->status = $request->newStatus;
-            $newStatus->control_id = $id;
-            $newStatus->updated_by = 1; //hardcoded until we get some real users
-            $newStatus->save();
-            $newStatus->refresh();
-
-            return response()->json($newStatus);
+        if (!isset($request->newStatus)) {
+            return response()->json([
+                'error' => 'missing data',
+            ], 400);
         }
+
+        $newStatus = new ControlStatus;
+        $newStatus->status = $request->newStatus;
+        $newStatus->control_id = $id;
+        $newStatus->updated_by = 1; //hardcoded until we get some real users
+        $newStatus->save();
+        $newStatus->refresh();
+
+        return response()->json($newStatus);
     }
 
     /**
@@ -63,16 +67,20 @@ class ControlController extends Controller
      */
     public function addEvidence(Request $request, $id)
     {
-        if (isset($request->title) && isset($request->description)) {
-            $newEvidence = new Evidence;
-            $newEvidence->title = $request->title;
-            $newEvidence->description = $request->description;
-            $newEvidence->control_id = $id;
-            $newEvidence->added_by = 1; //hardcoded until we get some real users
-            $newEvidence->save();
-            $newEvidence->refresh();
-
-            return response()->json($newEvidence);
+        if (!isset($request->title) || !isset($request->description)) {
+            return response()->json([
+                'error' => 'missing data',
+            ], 400);
         }
+
+        $newEvidence = new Evidence;
+        $newEvidence->title = $request->title;
+        $newEvidence->description = $request->description;
+        $newEvidence->control_id = $id;
+        $newEvidence->added_by = 1; //hardcoded until we get some real users
+        $newEvidence->save();
+        $newEvidence->refresh();
+
+        return response()->json($newEvidence);
     }
 }
