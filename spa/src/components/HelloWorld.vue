@@ -108,7 +108,7 @@
           rounded="lg"
           subtitle="Contribute to Compliance Buddy source code."
           target="_blank"
-          title="Open Source"
+          title="Open-Source Code"
           variant="text"
         >
           <v-overlay
