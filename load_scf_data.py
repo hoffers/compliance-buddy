@@ -24,7 +24,8 @@ def connect_to_db(config):
         host=config['host'],
         port=config['port'],
         user=config['user'],
-        password=config['password']
+        password=config['password'],
+        database=config['database']
     )
     return conn
 
@@ -284,7 +285,7 @@ def main():
         # conn.commit()
         # print('done')
 
-        cursor.execute("USE buddy")
+        # cursor.execute("USE buddy")
 
         # Raise max_allowed_packet to handle bulk queries
         cursor.execute("SHOW VARIABLES LIKE 'max_allowed_packet'")
