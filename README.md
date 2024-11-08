@@ -1,5 +1,5 @@
-# compliance-buddy
-Compliance Buddy application built for Georgia Tech OMSCY Practicum
+# Compliance Buddy
+Compliance Buddy web application built for Georgia Tech OMSCY Practicum
 
 ## Setup database
 
