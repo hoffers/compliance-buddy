@@ -5,7 +5,7 @@
       type="heading, divider, table-thead, table-tbody"
       :loading=loading
     >
-    <v-sheet class="ma-4">
+    <v-sheet class="ma-4" width="100%">
       <h1>Frameworks</h1>
 
       <v-text-field
@@ -17,6 +17,7 @@
       ></v-text-field>
       
       <v-data-table
+        width="100%"
         :items="frameworks"
         :headers="headers"
         hover
@@ -38,15 +39,17 @@ export default {
         {
           title: "Geography",
           key: "geography",
+          width: 100,
         },
         {
           title: "Source",
           key: "source",
+          width: 100,
         },
         {
           title: "Name",
           key: "short_name",
-          minWidth: 100,
+          width: 300,
         },
         {
           title: "Authoritative Source",

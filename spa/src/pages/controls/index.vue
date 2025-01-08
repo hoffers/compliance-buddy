@@ -5,7 +5,7 @@
       type="heading, divider, table-thead, table-tbody"
       :loading=loading
     >
-    <v-sheet class="ma-4">
+    <v-sheet class="ma-4" width="100%">
       <h1>Controls</h1>
 
       <v-text-field
@@ -17,6 +17,7 @@
       ></v-text-field>
       
       <v-data-table
+        width="100%"
         :items="controls"
         :headers="headers"
         hover
@@ -38,15 +39,17 @@ export default {
         {
           title: "ID",
           key: "identifier",
-          minWidth: 100,
+          width: 100,
         },
         {
           title: "Name",
           key: "name",
+          width: 250,
         },
         {
           title: "Weight",
           key: "weight",
+          width: 50,
         },
         {
           title: "Description",
